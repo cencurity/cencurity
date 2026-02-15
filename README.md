@@ -1,16 +1,23 @@
-## Hi there 👋
+# Cencurity Community (Public Deploy)
 
-<!--
-**cencurity/cencurity** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+- Dashboard: http://localhost:18080
+- Proxy: http://localhost:18082
 
-Here are some ideas to get you started:
+## Run
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+1) Create `.env` from `.env.example` and set `CENCURITY_IMAGE` to your published image.
+
+2) From this folder:
+
+```bash
+docker compose up -d
+```
+
+Data is persisted under `data/`.
+
+## Tenant
+
+- On first start, a default tenant is auto-created: `customer`
+- A bootstrap API key is generated and written to:
+  - `data/bootstrap_tenant_customer_api_key.txt`
+- Open the Dashboard and paste that API key when prompted.

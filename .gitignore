@@ -1,0 +1,8 @@
+# Local data for the public/community package
+/data/
+
+# Local env
+.env
+
+# OS/editor
+.DS_Store
