@@ -2,8 +2,8 @@
 
 # Cencurity
 
-Policy-driven security proxy for LLM apps.
-Inspect, log, and block risky code in real time.
+Cencurity is a security proxy that integrates with any IDE and LLM.
+모든 IDE와 LLM과 연동되는 보안 프록시입니다. 위험한 코드를 실시간으로 검사, 기록 및 차단합니다.
 
 - Dashboard: http://localhost:18080
 - Proxy: http://localhost:18082
