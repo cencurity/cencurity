@@ -17,13 +17,62 @@ It inspects, logs, and blocks risky code in real time.
 - Dashboard to review events and manage policies
 - API key authentication for access control
 
-## Video
+## Demos (Videos)
 
-Add your demo video as `assets/demo.mp4`.
+Add 4 demo videos under `assets/demos/`:
 
-<video src="./assets/demo.mp4" controls width="100%"></video>
+- `assets/demos/demo-1.mp4`
+- `assets/demos/demo-2.mp4`
+- `assets/demos/demo-3.mp4`
+- `assets/demos/demo-4.mp4`
 
-If your browser/GitHub view doesn’t render the video tag, use this direct link instead: [assets/demo.mp4](assets/demo.mp4)
+<details>
+	<summary>Demo 1</summary>
+
+	<video src="./assets/demos/demo-1.mp4" controls width="100%"></video>
+
+	Direct link: [assets/demos/demo-1.mp4](assets/demos/demo-1.mp4)
+</details>
+
+<details>
+	<summary>Demo 2</summary>
+
+	<video src="./assets/demos/demo-2.mp4" controls width="100%"></video>
+
+	Direct link: [assets/demos/demo-2.mp4](assets/demos/demo-2.mp4)
+</details>
+
+<details>
+	<summary>Demo 3</summary>
+
+	<video src="./assets/demos/demo-3.mp4" controls width="100%"></video>
+
+	Direct link: [assets/demos/demo-3.mp4](assets/demos/demo-3.mp4)
+</details>
+
+<details>
+	<summary>Demo 4</summary>
+
+	<video src="./assets/demos/demo-4.mp4" controls width="100%"></video>
+
+	Direct link: [assets/demos/demo-4.mp4](assets/demos/demo-4.mp4)
+</details>
+
+Note: GitHub may not render the `<video>` tag in all views. The direct links will always work.
+
+## Screenshots
+
+Add images under `assets/screenshots/` (PNG/JPG/WebP), for example:
+
+- `assets/screenshots/shot-1.png`
+- `assets/screenshots/shot-2.png`
+- `assets/screenshots/shot-3.png`
+
+Then reference them here:
+
+![Screenshot 1](./assets/screenshots/shot-1.png)
+![Screenshot 2](./assets/screenshots/shot-2.png)
+![Screenshot 3](./assets/screenshots/shot-3.png)
 
 ## Preview
 
