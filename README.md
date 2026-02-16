@@ -1,6 +1,6 @@
 ﻿# Cencurity Community (Public Deploy)
 
-Cencurity is a security gateway that **proxies LLM/agent traffic** and **detects / masks / blocks** sensitive data and risky code patterns in requests and responses, while recording everything as **Audit Logs**.
+Cencurity is a security gateway that proxies LLM/agent traffic and detects / masks / blocks sensitive data and risky code patterns in requests and responses, while recording everything as Audit Logs.
 
 ## Screenshots
 
@@ -16,31 +16,41 @@ What you see on this screen (as implemented in the UI):
 
 ### 2) Log Analysis
 
-![Log Analysis](assets/screenshot-log-analysis.png)
+![Log Analysis](assets/screenshot-log-analysis.gif)
 
 This view is the audit-log table + detail drilldown:
 
-- The table includes **Time / Direction / Policy+Severity / Detected Content / Action / Client IP**.
+- The table includes Time / Direction / Policy+Severity / Detected Content / Action / Client IP.
 - Clicking a row opens a detail modal that renders **Finding Details** from the `finding_details` field (when present) and shows a sanitized captured payload.
 - The dataset comes from the same audit-log pipeline used by the dashboard (`/api/audit-logs` + `/sse`).
 
 ### 3) Dry Run
 
-![Dry Run](assets/screenshot-dry-run.png)
+![Dry Run](assets/screenshot-dry-run.gif)
 
 Dry Run provides two code-backed workflows:
 
-- **Historical dry-run (counts + samples)**: `GET /api/dry-run?policy_id=...&hours=...` returns `matched_count` and up to 5 recent `sample_logs` for that policy.
-- **Simulator (no log writes)**: the modal calls `POST /api/dry-run` with `{ policy_id, input, direction }` and returns whether the input would be **masked**, **blocked**, or **left unchanged**.
+- Historical dry-run (counts + samples): `GET /api/dry-run?policy_id=...&hours=...` returns `matched_count` and up to 5 recent `sample_logs` for that policy.
+- Simulator (no log writes): the modal calls `POST /api/dry-run` with `{ policy_id, input, direction }` and returns whether the input would be **masked**, **blocked**, or **left unchanged**.
 
 Notes:
 
-- The simulator explicitly does **not** write to `audit_logs`.
+- The simulator explicitly does not write to `audit_logs`.
 - For code-analysis policies, the simulator can evaluate inbound/outbound directions and may return a structured `finding` payload when a risky pattern is detected.
+
+### 4) Zero-click
+
+![Zero-click](assets/screenshot-zero-click.gif)
+
+This GIF highlights how “zero-click” protection shows up in the product:
+
+- **Inbound (agent/tool execution attempts)**: when requests contain `tools/call` payloads that include dangerous execution primitives (for example `os.system`, `subprocess`, `eval`, `exec`), Cencurity can block them and write an audit log under the unified **Cencurity Code Analysis** policy.
+- **Outbound (dangerous code in model responses)**: when the upstream model response contains risky code (including code blocks in streaming SSE), Cencurity can block the response and emit a structured policy error payload.
+- These events flow into the same pipeline the dashboard uses (`/api/audit-logs` + `/sse`), which is why the **Zero-click status** widget updates in real time.
 
 ## What Cencurity Does
 
-- AI API Proxy: Proxies **OpenAI-compatible endpoints** (works with many LLM providers and self-hosted/open-source gateways that implement the OpenAI API), plus Anthropic- and Gemini-compatible endpoints.
+- AI API Proxy: Proxies OpenAI-compatible endpoints (works with many LLM providers and self-hosted/open-source gateways that implement the OpenAI API), plus Anthropic- and Gemini-compatible endpoints.
 - Policy-based masking: Applies Regex policies to replace sensitive data with `[MASKED]` (or a custom mask text) and records per-policy severity.
 - Zero-click / Code-analysis blocking:
   - For inbound `tools/call` payloads, extracts arguments/code that could actually be executed.
@@ -109,7 +119,7 @@ The proxy listens on http://localhost:18082 and exposes provider-compatible endp
 
 ### Authentication behavior (local community deploy)
 
-By default, the proxy expects your **upstream LLM provider key** on the request (for example, an OpenAI API key). The single-tenant gateway injects the tenant context automatically.
+By default, the proxy expects your upstream LLM provider key on the request (for example, an OpenAI API key). The single-tenant gateway injects the tenant context automatically.
 
 ### Example: OpenAI-compatible request
 
