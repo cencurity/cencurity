@@ -40,7 +40,7 @@ Notes:
 
 ## What Cencurity Does
 
-- AI API Proxy: Proxies OpenAI/Anthropic/Gemini-compatible endpoints.
+- AI API Proxy: Proxies **OpenAI-compatible endpoints** (works with many LLM providers and self-hosted/open-source gateways that implement the OpenAI API), plus Anthropic- and Gemini-compatible endpoints.
 - Policy-based masking: Applies Regex policies to replace sensitive data with `[MASKED]` (or a custom mask text) and records per-policy severity.
 - Zero-click / Code-analysis blocking:
   - For inbound `tools/call` payloads, extracts arguments/code that could actually be executed.
