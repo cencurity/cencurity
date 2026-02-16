@@ -28,9 +28,8 @@ This view is the audit-log table + detail drilldown:
 
 ![Dry Run](assets/screenshot-dry-run.gif)
 
-Dry Run provides two code-backed workflows:
+Dry Run is a safe simulator:
 
-- Historical dry-run (counts + samples): `GET /api/dry-run?policy_id=...&hours=...` returns `matched_count` and up to 5 recent `sample_logs` for that policy.
 - Simulator (no log writes): the modal calls `POST /api/dry-run` with `{ policy_id, input, direction }` and returns whether the input would be **masked**, **blocked**, or **left unchanged**.
 
 Notes:
@@ -60,7 +59,6 @@ This GIF highlights how “zero-click” protection shows up in the product:
 - Audit log storage & query: Stores policy match events (mask/block) in the DB and exposes recent logs via API.
 - Real-time events (SSE): Broadcasts audit-log events in real time so the dashboard can update instantly.
 - Dry Run:
-  - Shows historical match counts and samples for a policy over the last N hours.
   - Simulates “would this be masked/blocked?” without writing audit_logs.
 - Webhook alerts: Sends Slack/Discord/Telegram/Jandi/Custom webhook alerts based on severity/events.
 
