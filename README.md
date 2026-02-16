@@ -1,4 +1,6 @@
-﻿# Cencurity Community (Public Deploy)
+﻿![Cencurity](assets/banner.png)
+
+# Cencurity Community (Public Deploy)
 
 Cencurity is a security gateway that proxies LLM/agent traffic and detects / masks / blocks sensitive data and risky code patterns in requests and responses, while recording everything as Audit Logs.
 
