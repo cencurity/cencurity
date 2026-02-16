@@ -6,7 +6,7 @@ Cencurity is a security gateway that proxies LLM/agent traffic and detects / mas
 
 ### 1) Dashboard
 
-![Dashboard](assets/screenshot-dashboard.png)
+![Dashboard](assets/screenshot-dashboard.jpg)
 
 What you see on this screen (as implemented in the UI):
 
