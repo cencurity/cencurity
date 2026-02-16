@@ -8,10 +8,22 @@ It inspects, logs, and blocks risky code in real time.
 ## Features
 
 - Policy-based allow / block decisions for code and tool outputs
+- Custom policies (extend and tailor rules to your environment)
+- Dry-run mode (simulate enforcement without blocking)
+- Zero-click defense for high-risk patterns
 - Real-time proxy for LLM app traffic
 - Audit logs for investigations and traceability
+- Audit log download/export for reviews and reporting
 - Dashboard to review events and manage policies
 - API key authentication for access control
+
+## Video
+
+Add your demo video as `assets/demo.mp4`.
+
+<video src="./assets/demo.mp4" controls width="100%"></video>
+
+If your browser/GitHub view doesn’t render the video tag, use this direct link instead: [assets/demo.mp4](assets/demo.mp4)
 
 ## Preview
 
