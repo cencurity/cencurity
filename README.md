@@ -2,24 +2,29 @@
 
 # Cencurity
 
-Policy-driven security proxy for LLM apps — inspect and block risky code in real time.
+Policy-driven security proxy for LLM apps.
+Inspect, log, and block risky code in real time.
 
 - Dashboard: http://localhost:18080
 - Proxy: http://localhost:18082
 
-## What’s included
+## Features
 
-- [x] Deploy-only Docker Compose package (no source code required)
-- [x] Nginx gateway in front of the app
-- [x] Single-tenant default (`customer`) for localhost
-- [x] Persistent data volume under `data/`
-- [x] No admin UI exposed
+- Policy-based allow / block decisions for code and tool outputs
+- Real-time proxy for LLM app traffic
+- Audit logs for investigations and traceability
+- Dashboard to review events and manage policies
+- API key authentication for access control
 
 ## Preview
 
-Add your screenshot at `assets/preview.png`, then it will show here:
+<details>
+	<summary>Add a product screenshot (optional)</summary>
 
-![Preview](./assets/preview.png)
+	Put your screenshot at <code>assets/preview.png</code> and it will render here:
+
+	<img src="./assets/preview.png" alt="Preview" width="100%" />
+</details>
 
 ## Quickstart
 
