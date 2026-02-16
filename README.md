@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="assets/banner.png" alt="Cencurity" width="100%" />
-</p>
+![Cencurity](./assets/banner.png)
 
 # Cencurity
 
