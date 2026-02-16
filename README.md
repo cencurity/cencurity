@@ -1,7 +1,5 @@
-# Cencurity Community (Public Deploy)
+# Cencurity
 
-- Dashboard: http://localhost:18080
-- Proxy: http://localhost:18082
 
 ## Run
 
