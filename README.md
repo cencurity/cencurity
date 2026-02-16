@@ -12,7 +12,7 @@ Cencurity is a security gateway that **proxies LLM/agent traffic** and **detects
 - Zero-click / Code-analysis blocking:
   - For inbound `tools/call` payloads, extracts arguments/code that could actually be executed.
   - Immediately blocks dangerous keywords like `os.system`, `subprocess`, `eval`, `exec`.
-  - Can detect and block risky patterns using Semgrep-based SAST rules.
+  - Can detect and block risky patterns using static analysis (SAST) rules.
 - Streaming response protection: Even during SSE streaming, it can safely accumulate fenced code blocks (``` … ```) for scanning/blocking.
 - Audit log storage & query: Stores policy match events (mask/block) in the DB and exposes recent logs via API.
 - Real-time events (SSE): Broadcasts audit-log events in real time so the dashboard can update instantly.
