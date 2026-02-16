@@ -19,31 +19,14 @@ It inspects, logs, and blocks risky code in real time.
 
 ## Demos (Videos)
 
-<details>
-	<summary>Log analysis</summary>
+GitHub README typically does not render inline video players.
+Use the links below (they open a playable `raw` URL in the browser):
 
-	<video src="./assets/로그분석.mp4" controls width="100%"></video>
+- Log analysis: https://github.com/cencurity/cencurity/raw/main/assets/%EB%A1%9C%EA%B7%B8%EB%B6%84%EC%84%9D.mp4
+- Dry run: https://github.com/cencurity/cencurity/raw/main/assets/%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%9F%B0.mp4
+- Zero-click defense: https://github.com/cencurity/cencurity/raw/main/assets/%EC%A0%9C%EB%A1%9C%ED%81%B4%EB%A6%AD.mp4
 
-	Direct link: [assets/로그분석.mp4](assets/%EB%A1%9C%EA%B7%B8%EB%B6%84%EC%84%9D.mp4)
-</details>
-
-<details>
-	<summary>Dry run</summary>
-
-	<video src="./assets/드라이런.mp4" controls width="100%"></video>
-
-	Direct link: [assets/드라이런.mp4](assets/%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%9F%B0.mp4)
-</details>
-
-<details>
-	<summary>Zero-click defense</summary>
-
-	<video src="./assets/제로클릭.mp4" controls width="100%"></video>
-
-	Direct link: [assets/제로클릭.mp4](assets/%EC%A0%9C%EB%A1%9C%ED%81%B4%EB%A6%AD.mp4)
-</details>
-
-Note: GitHub may not render the `<video>` tag in all views. The direct links will always work.
+Tip: If you add thumbnails (PNG) next to each video, we can render them as big clickable previews.
 
 ## Preview
 
