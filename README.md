@@ -1,4 +1,4 @@
-![Cencurity](./assets/banner.png)
+![Cencurity](./assets/banner.png?v=20260217-1)
 
 # Cencurity
 
