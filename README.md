@@ -8,19 +8,35 @@ Cencurity is a security gateway that **proxies LLM/agent traffic** and **detects
 
 ![Dashboard](assets/screenshot-dashboard.png)
 
-High-level security status and recent activity at a glance.
+What you see on this screen (as implemented in the UI):
+
+- **Security score** computed from recent audit logs (severity-weighted).
+- **Zero-click status** derived from code-analysis related audit-log entries.
+- **Live updates**: the page loads recent logs from `GET /api/audit-logs` and then keeps updating via `GET /sse` (Server-Sent Events).
 
 ### 2) Log Analysis
 
 ![Log Analysis](assets/screenshot-log-analysis.png)
 
-Explore audit logs (policy, severity, direction, client IP) and drill down into findings.
+This view is the audit-log table + detail drilldown:
+
+- The table includes **Time / Direction / Policy+Severity / Detected Content / Action / Client IP**.
+- Clicking a row opens a detail modal that renders **Finding Details** from the `finding_details` field (when present) and shows a sanitized captured payload.
+- The dataset comes from the same audit-log pipeline used by the dashboard (`/api/audit-logs` + `/sse`).
 
 ### 3) Dry Run
 
 ![Dry Run](assets/screenshot-dry-run.png)
 
-Simulate a policy against an input safely, and review historical match counts/samples.
+Dry Run provides two code-backed workflows:
+
+- **Historical dry-run (counts + samples)**: `GET /api/dry-run?policy_id=...&hours=...` returns `matched_count` and up to 5 recent `sample_logs` for that policy.
+- **Simulator (no log writes)**: the modal calls `POST /api/dry-run` with `{ policy_id, input, direction }` and returns whether the input would be **masked**, **blocked**, or **left unchanged**.
+
+Notes:
+
+- The simulator explicitly does **not** write to `audit_logs`.
+- For code-analysis policies, the simulator can evaluate inbound/outbound directions and may return a structured `finding` payload when a risky pattern is detected.
 
 ## What Cencurity Does
 
@@ -74,6 +90,8 @@ Data is persisted under `data/`.
 ## Dashboard Login (how it works)
 
 The dashboard prompts for an API key on first access.
+
+![Dashboard Login](assets/dashboard-login.gif)
 
 - Paste the key from `data/bootstrap_tenant_customer_api_key.txt` into the login modal.
 - The UI validates the key by calling `GET /api/config` with both headers:
