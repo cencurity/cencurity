@@ -159,3 +159,11 @@ curl http://localhost:18082/v1/messages \
 ## Notes
 
 - This public deploy runs in `CENCURITY_MODE=customer`, and the admin server/UI is not started or exposed.
+
+
+## Open Source Availability
+
+This repository provides the public deployable community edition of Cencurity.
+It allows developers to run the full security gateway locally using Docker.
+
+Core components may be released progressively.
