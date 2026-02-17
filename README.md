@@ -160,6 +160,9 @@ curl http://localhost:18082/v1/messages \
 
 - This public deploy runs in `CENCURITY_MODE=customer`, and the admin server/UI is not started or exposed.
 
+Tech stack: Go backend + React (Vite) dashboard + Nginx gateway + SQLite (via Docker Compose).
+Or even shorter: Built with Go + React, shipped via Docker.
+
 
 ## Open Source Availability
 
