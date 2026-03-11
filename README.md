@@ -160,6 +160,13 @@ curl http://localhost:18082/v1/messages \
 
 - This public deploy runs in `CENCURITY_MODE=customer`, and the admin server/UI is not started or exposed.
 
+- On first start, the deploy seeds a default set of **system policies (5)** so every user sees the same baseline policies:
+  - Sensitive Data Detection
+  - Cencurity Code Analysis
+  - Universal API Key Detection
+  - Email Masking
+  - Phone Number Masking
+
 Tech stack: Go backend + React (Vite) dashboard + Nginx gateway + SQLite (via Docker Compose).
 Or even shorter: Built with Go + React, shipped via Docker.
 
