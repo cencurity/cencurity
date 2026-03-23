@@ -4,6 +4,30 @@
 
 Cencurity is a security gateway that proxies LLM/agent traffic and detects / masks / blocks sensitive data and risky code patterns in requests and responses, while recording everything as Audit Logs.
 
+## Quickstart
+
+This is the ultra-simple Community flow.
+
+### Ultra-simple version
+
+1. Clone the repository: `git clone https://github.com/cencurity/cencurity.git`
+2. Move into the deploy folder: `cd cencurity`
+3. Run `docker compose up -d`
+4. Open `data/bootstrap_tenant_customer_api_key.txt` and check the API key
+5. Open `http://localhost:18080` in your browser and log in with that API key
+6. Set your app's LLM base URL to `http://localhost:18082`
+
+### Main local URLs
+
+- Dashboard: `http://localhost:18080`
+- Proxy: `http://localhost:18082`
+
+### What this means in practice
+
+- dashboard login uses the generated bootstrap tenant API key
+- your app sends model traffic through the LLM base URL `http://localhost:18082`
+- Cencurity sits in the middle before traffic reaches the provider
+
 ## Screenshots
 
 ### 1) Dashboard
