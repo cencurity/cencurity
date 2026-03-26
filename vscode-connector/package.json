@@ -1,0 +1,91 @@
+{
+  "name": "cencurity-connector",
+  "displayName": "Cencurity Connector",
+  "description": "Lightweight connector that downloads and launches the private Cencurity core binary.",
+  "version": "0.0.1",
+  "publisher": "local",
+  "license": "SEE LICENSE IN LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cencurity/cencurity.git"
+  },
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "categories": [
+    "Other"
+  ],
+  "scripts": {
+    "package:vsix": "vsce package --out cencurity-connector.vsix"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^3.6.2"
+  },
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "cencurityConnector.enableProtection",
+        "title": "Cencurity Connector: Enable Protection"
+      },
+      {
+        "command": "cencurityConnector.disableProtection",
+        "title": "Cencurity Connector: Disable Protection"
+      },
+      {
+        "command": "cencurityConnector.testProtection",
+        "title": "Cencurity Connector: Test Protection"
+      },
+      {
+        "command": "cencurityConnector.openSecurityCenter",
+        "title": "Cencurity Connector: Open Security Center"
+      },
+      {
+        "command": "cencurityConnector.installOrUpdateCore",
+        "title": "Cencurity Connector: Install or Update Core"
+      },
+      {
+        "command": "cencurityConnector.showRuntimeInfo",
+        "title": "Cencurity Connector: Show Runtime Info"
+      }
+    ],
+    "configuration": {
+      "title": "Cencurity Connector",
+      "properties": {
+        "cencurityConnector.manifestUrl": {
+          "type": "string",
+          "default": "",
+          "description": "Publicly reachable release manifest URL that describes downloadable Cencurity core binaries. Leave empty until your public manifest is ready."
+        },
+        "cencurityConnector.releaseChannel": {
+          "type": "string",
+          "default": "stable",
+          "description": "Release channel name used by the connector for status display and manifest metadata."
+        },
+        "cencurityConnector.binaryName": {
+          "type": "string",
+          "default": "",
+          "description": "Optional explicit binary filename override if the manifest omits fileName."
+        },
+        "cencurityConnector.host": {
+          "type": "string",
+          "default": "127.0.0.1",
+          "description": "Local host used when launching the downloaded Cencurity core."
+        },
+        "cencurityConnector.port": {
+          "type": "number",
+          "default": 38180,
+          "description": "Local port used when launching the downloaded Cencurity core."
+        },
+        "cencurityConnector.openInSimpleBrowser": {
+          "type": "boolean",
+          "default": true,
+          "description": "Open the local Cencurity dashboard in VS Code Simple Browser instead of the external browser."
+        }
+      }
+    }
+  }
+}
