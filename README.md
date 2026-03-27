@@ -60,4 +60,4 @@ Protection is now active.
 
 ## Legacy
 
-The previous Docker/community-oriented layout and older runtime assets are preserved in `./legacy`.
+The previous Docker-based community snapshot is preserved in `./legacy` with a minimal public layout (`docker-compose.yml`, `nginx.conf`, `.env.example`, and `data/`).

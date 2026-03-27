@@ -4,5 +4,7 @@ node_modules/**
 *.vsix
 *.log
 manifest.sample.json
+dev-runtime/**
+webview-dist/**
 assets/**
 !assets/24234234.png

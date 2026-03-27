@@ -1,3 +1,0 @@
-event: error
-data: {"error":{"type":"policy_block","message":"Generated code was blocked because it violates the rule: 'Use of eval() is not allowed in generated code.'","policy":{"id":"outbound-code-safety","name":"Outbound Code Safety"},"rule":{"id":"code.eval.dynamic","code":"RCE-002","summary":"Use of eval() is not allowed in generated code."},"severity":"CRITICAL","action":"blocked"}}
-

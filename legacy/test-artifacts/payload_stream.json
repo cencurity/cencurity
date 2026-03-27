@@ -1,8 +1,0 @@
-﻿{
-  "model": "gpt-4o-mini",
-  "stream": true,
-  "temperature": 0,
-  "messages": [
-    {"role":"user","content":"hi"}
-  ]
-}
