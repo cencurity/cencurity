@@ -26,5 +26,10 @@ legacy/test-artifacts/
 legacy/vscode-core-runtime/
 vscode-extension/dev-runtime/
 vscode-extension/webview-dist/
+vscode-extension/.vscodeignore
+vscode-extension/LICENSE
+vscode-extension/manifest.sample.json
+vscode-extension/package-lock.json
+vscode-extension/assets/screenshot-dashboard.jpg
 !legacy/data/README.md
 !legacy/data/.gitkeep
