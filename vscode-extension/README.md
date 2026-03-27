@@ -112,4 +112,4 @@ Cencurity is the first tool built on CAST.
 
 - Routing applies to supported env-based routing paths.
 - Some extensions may bypass VS Code environment settings and not route through the proxy.
-- The connector can use a local workspace runtime during development or a released core artifact in distribution builds.
+- Public source exposure is intentionally minimized; older private runtime and embedded UI trees are not included here.

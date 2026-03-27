@@ -9,4 +9,5 @@ Included here are only the public files needed to understand or run that older l
 - `nginx.conf`
 - `data/`
 
-This legacy snapshot is no longer the primary product surface. The main product is the VS Code extension in `../vscode-extension`.
+This legacy snapshot is no longer the primary product surface. Older runtime, extension, and embedded UI source trees are not published in this folder.
+The main product surface is the VS Code extension in `../vscode-extension`.

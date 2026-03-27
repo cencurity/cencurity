@@ -9,7 +9,6 @@ const PROTECTION_STATE_KEY = 'cencurityConnector.protectionState';
 const PROTECTION_PROMPTED_KEY = 'cencurityConnector.protectionPrompted';
 const DEFAULT_HOST = '127.0.0.1';
 const DEFAULT_PORT = 38180;
-const ORIGINAL_UI_PANEL_TYPE = 'cencurityConnector.originalUiPanel';
 const LEGACY_ROUTING_WARNING = 'Routing may not apply to extensions that bypass terminal.integrated env settings or manage provider URLs internally.';
 const DEFAULT_ROUTING_WARNING = 'Protection applies to supported env-based routing paths.';
 
@@ -53,13 +52,8 @@ const TERMINAL_ENV_SCOPE_KEYS = ['env.windows', 'env.linux', 'env.osx'];
 
 let coreProcess;
 let outputChannel;
-let originalUiPanel;
 let statusBarItem;
 let runtimeStartPromise;
-
-function getWorkspaceRoots() {
-  return (vscode.workspace.workspaceFolders || []).map((folder) => folder.uri.fsPath);
-}
 
 function getSettingsTarget() {
   return vscode.workspace.workspaceFolders?.length ? vscode.ConfigurationTarget.Workspace : vscode.ConfigurationTarget.Global;
@@ -112,16 +106,8 @@ async function setProtectionState(context, nextState) {
   await pushProtectionStateToPanel(context, nextState.proxyUrl);
 }
 
-async function pushProtectionStateToPanel(context, runtimeUrlOverride) {
-  if (!originalUiPanel) {
-    return;
-  }
-  const runtimeUrl = runtimeUrlOverride || buildRuntimeUrl(getConfig());
-  const protectionState = getProtectionState(context, runtimeUrl);
-  await originalUiPanel.webview.postMessage({
-    type: 'protectionStateChanged',
-    protectionState
-  });
+async function pushProtectionStateToPanel() {
+  return undefined;
 }
 
 function logLine(message) {
@@ -245,38 +231,6 @@ async function ensureStorageDir(context) {
   return baseDir;
 }
 
-async function findLocalWorkspaceCoreScript() {
-  for (const workspaceRoot of getWorkspaceRoots()) {
-    const candidate = path.join(workspaceRoot, 'vscode-extension', 'dev-runtime', 'core-server.js');
-    if (await pathExists(candidate)) {
-      return candidate;
-    }
-  }
-  return undefined;
-}
-
-async function findLocalWorkspaceClientBuild() {
-  for (const workspaceRoot of getWorkspaceRoots()) {
-    const distRoot = path.join(workspaceRoot, 'vscode-extension', 'webview-dist');
-    const indexPath = path.join(distRoot, 'index.client.html');
-    if (await pathExists(indexPath)) {
-      return { distRoot, indexPath };
-    }
-  }
-  return undefined;
-}
-
-async function findLocalWorkspaceBinary(target) {
-  const binaryName = target.startsWith('win32') ? 'cencurity-core.exe' : 'cencurity-core';
-  for (const workspaceRoot of getWorkspaceRoots()) {
-    const candidate = path.join(workspaceRoot, 'vscode-extension', 'dev-runtime', 'dist', 'releases', target, binaryName);
-    if (await pathExists(candidate)) {
-      return candidate;
-    }
-  }
-  return undefined;
-}
-
 async function fetchJson(url) {
   const response = await fetch(url);
   if (!response.ok) {
@@ -353,41 +307,8 @@ async function ensureExecutable(binaryPath) {
 async function ensureCoreBinary(context, forceDownload = false) {
   const config = getConfig();
   if (!config.manifestUrl) {
-    const target = getPlatformTarget();
-    const localScriptPath = await findLocalWorkspaceCoreScript();
-    if (localScriptPath) {
-      const install = {
-        version: 'local-workspace-source',
-        target,
-        binaryPath: localScriptPath,
-        launchStrategy: 'node-script',
-        manifestUrl: '(local-workspace-source)',
-        downloadedAt: new Date().toISOString(),
-        channel: config.releaseChannel
-      };
-      await context.globalState.update(CONNECTOR_STATE_KEY, install);
-      outputChannel.appendLine(`[connector] using local workspace source: ${localScriptPath}`);
-      return install;
-    }
-
-    const localBinaryPath = await findLocalWorkspaceBinary(target);
-    if (localBinaryPath) {
-      const install = {
-        version: 'local-workspace',
-        target,
-        binaryPath: localBinaryPath,
-        launchStrategy: 'binary',
-        manifestUrl: '(local-workspace)',
-        downloadedAt: new Date().toISOString(),
-        channel: config.releaseChannel
-      };
-      await context.globalState.update(CONNECTOR_STATE_KEY, install);
-      outputChannel.appendLine(`[connector] using local workspace core: ${localBinaryPath}`);
-      return install;
-    }
-
     const action = await vscode.window.showWarningMessage(
-      'Set cencurityConnector.manifestUrl or build a local core binary under vscode-extension/dev-runtime/dist/releases before installing the Cencurity core binary.',
+      'Set cencurityConnector.manifestUrl before installing the Cencurity core binary.',
       'Open Settings'
     );
     if (action === 'Open Settings') {
@@ -840,7 +761,6 @@ async function enableProtection(context) {
 
 async function enableProtectionFromPanel(context) {
   await new Promise((resolve) => setTimeout(resolve, 30));
-  originalUiPanel?.reveal(vscode.ViewColumn.One, false);
   await enableProtection(context);
 }
 
@@ -1184,90 +1104,7 @@ function createProxyBootstrapScript(runtimeUrl, nonce, protectionState) {
   </script>`;
 }
 
-async function buildOriginalUiHtml(webview, runtimeUrl, clientBuild, protectionState) {
-  const nonce = `${Date.now()}`;
-  let html = await fs.readFile(clientBuild.indexPath, 'utf8');
-  const assetPattern = /(["'])(\.\/assets\/[^"']+)\1/g;
-  html = html.replace(assetPattern, (match, quote, relativePath) => {
-    const absolutePath = path.join(clientBuild.distRoot, relativePath.replace('./', '').replace(/\//g, path.sep));
-    return `${quote}${webview.asWebviewUri(vscode.Uri.file(absolutePath))}${quote}`;
-  });
-
-  const csp = `default-src 'none'; img-src ${webview.cspSource} https: data:; style-src ${webview.cspSource} 'unsafe-inline'; script-src 'nonce-${nonce}' ${webview.cspSource}; connect-src ${webview.cspSource} ${runtimeUrl} http://127.0.0.1:*; font-src ${webview.cspSource} https: data:;`;
-  const bootstrap = createProxyBootstrapScript(runtimeUrl, nonce, protectionState);
-  if (html.includes('<meta charset="UTF-8" />')) {
-    html = html.replace('<meta charset="UTF-8" />', `<meta charset="UTF-8" />\n    <meta http-equiv="Content-Security-Policy" content="${csp}">`);
-  } else {
-    html = html.replace('<head>', `<head>\n    <meta http-equiv="Content-Security-Policy" content="${csp}">`);
-  }
-  html = html.replace('</head>', `\n    ${bootstrap}\n  </head>`);
-  return html;
-}
-
-async function refreshOriginalUiPanel(context, runtimeUrlOverride) {
-  if (!originalUiPanel) {
-    return;
-  }
-  const clientBuild = await findLocalWorkspaceClientBuild();
-  if (!clientBuild) {
-    return;
-  }
-  const runtimeUrl = runtimeUrlOverride || getProtectionState(context).proxyUrl || buildRuntimeUrl(getConfig());
-  const protectionState = getProtectionState(context, runtimeUrl);
-  originalUiPanel.webview.html = await buildOriginalUiHtml(originalUiPanel.webview, runtimeUrl, clientBuild, protectionState);
-}
-
-async function openOriginalUiPanel(context, runtimeUrl, clientBuild) {
-  const protectionState = getProtectionState(context, runtimeUrl);
-  if (originalUiPanel) {
-    originalUiPanel.reveal(vscode.ViewColumn.One);
-    originalUiPanel.webview.html = await buildOriginalUiHtml(originalUiPanel.webview, runtimeUrl, clientBuild, protectionState);
-    return;
-  }
-
-  originalUiPanel = vscode.window.createWebviewPanel(
-    ORIGINAL_UI_PANEL_TYPE,
-    'Cencurity Security Center',
-    vscode.ViewColumn.One,
-    {
-      enableScripts: true,
-      retainContextWhenHidden: true,
-      localResourceRoots: [vscode.Uri.file(clientBuild.distRoot)]
-    }
-  );
-  originalUiPanel.onDidDispose(() => {
-    originalUiPanel = undefined;
-  });
-  originalUiPanel.webview.onDidReceiveMessage(async (message) => {
-    if (!message || typeof message !== 'object') {
-      return;
-    }
-    if (message.type === 'testProtection') {
-      await testProtection(context, false);
-      return;
-    }
-    if (message.type === 'disableProtection') {
-      await disableProtection(context);
-      return;
-    }
-    if (message.type === 'enableProtection') {
-      await enableProtectionFromPanel(context);
-      return;
-    }
-    if (message.type === 'refreshPanel') {
-      await refreshOriginalUiPanel(context, runtimeUrl);
-    }
-  });
-  originalUiPanel.webview.html = await buildOriginalUiHtml(originalUiPanel.webview, runtimeUrl, clientBuild, protectionState);
-}
-
 async function openDashboard(context, url, useSimpleBrowser) {
-  const clientBuild = await findLocalWorkspaceClientBuild();
-  if (clientBuild) {
-    await openOriginalUiPanel(context, url, clientBuild);
-    return;
-  }
-
   if (useSimpleBrowser) {
     try {
       await vscode.commands.executeCommand('simpleBrowser.show', url);
@@ -1284,7 +1121,7 @@ async function showRuntimeInfo(context) {
   const target = getPlatformTarget();
   const protectionState = getProtectionState(context, buildRuntimeUrl(config));
   const lines = [
-    `Manifest: ${config.manifestUrl || '(not set - using local workspace fallback if available)'}`,
+    `Manifest: ${config.manifestUrl || '(not set)'}`,
     `Channel: ${config.releaseChannel}`,
     `Target: ${target}`,
     `Runtime URL: ${buildRuntimeUrl(config)}`,

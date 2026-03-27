@@ -9,9 +9,22 @@
 
 # Workspace/editor state
 .vscode/
+vscode-connector/
 
 # Dependencies
 node_modules/
 
 # Packaged extension artifacts
 *.vsix
+
+# Private legacy/runtime artifacts kept only for local work
+legacy/cencurity/
+legacy/data/*
+legacy/data-community/
+legacy/scripts/
+legacy/test-artifacts/
+legacy/vscode-core-runtime/
+vscode-extension/dev-runtime/
+vscode-extension/webview-dist/
+!legacy/data/README.md
+!legacy/data/.gitkeep

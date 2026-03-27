@@ -56,7 +56,7 @@ Protection is now active.
 
 - Routing applies to supported environment-based provider paths
 - Some extensions may bypass VS Code environment settings and not route through the proxy
-- The extension can use a local legacy runtime during development or a released core artifact in distribution builds
+- The public repository does not include older private runtime or embedded UI source trees
 
 ## Legacy
 
