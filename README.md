@@ -12,23 +12,39 @@ Cencurity is a security gateway that proxies LLM/agent traffic and detects / mas
 
 - Marketplace: https://marketplace.visualstudio.com/items?itemName=cencurity-labs.cencurity
 - Install the extension from the VS Code Marketplace
-- Set `cencurityConnector.manifestUrl` in VS Code Settings
-- Run `Cencurity: Install or Update Core`
+- Follow the in-extension setup flow to connect your runtime and provider
 - Run `Cencurity: Enable Protection`, then select your LLM provider
 - Run `Cencurity: Open Security Center`
 
+The VS Code extension source is not published in this public repository.
+
 ### Community Deploy (Docker)
 
-```bash
+1. Clone the repository and move into the Docker deploy folder.
+
+```text
 git clone https://github.com/cencurity/cencurity.git
 cd cencurity
 cd legacy
+```
+
+2. Copy `.env.example` to `.env`, then set `CENCURITY_IMAGE` in `.env`.
+
+3. Start the stack.
+
+```text
 docker compose up -d
 ```
 
-- Copy `.env.example` to `.env`
-- Set `CENCURITY_IMAGE` in `.env` before starting the stack
-- Data is persisted under `data/`
+4. Open `http://localhost:18080`.
+
+5. On first startup, copy the bootstrap tenant API key from `data/bootstrap_tenant_customer_api_key.txt` and paste it into the dashboard login prompt.
+
+6. In your IDE or client, set the OpenAI-compatible Base URL to `http://localhost:18082`.
+
+7. Use your upstream provider API key as the client API key.
+
+Data is persisted under `data/` inside `legacy/`.
 
 ## Screenshots
 
