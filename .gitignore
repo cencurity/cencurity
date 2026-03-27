@@ -24,7 +24,8 @@ legacy/data-community/
 legacy/scripts/
 legacy/test-artifacts/
 legacy/vscode-core-runtime/
-vscode-extension/
+vscode-extension/*
+!vscode-extension/README.md
 vscode-extension/dev-runtime/
 vscode-extension/webview-dist/
 vscode-extension/.vscodeignore
