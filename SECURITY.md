@@ -9,7 +9,7 @@ Support is provided on a best-effort basis for the latest `main` branch.
 
 If you believe you’ve found a security issue, please do **not** open a public issue.
 
-- Email: `security@centramcp.com` (preferred)
+- Email: `vlad@cencurity.com` (preferred)
 - If you cannot email, open a private GitHub Security Advisory (if enabled).
 
 Please include:

@@ -23,4 +23,4 @@ Project maintainers may remove content and restrict participation for behavior t
 
 ## Reporting
 
-If you need to report a problem, email `security@centramcp.com` with relevant context.
+If you need to report a problem, email `vlad@cencurity.com` with relevant context.

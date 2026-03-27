@@ -1,4 +1,6 @@
-﻿# Cencurity
+﻿![Cencurity](assets/banner.png)
+
+# Cencurity
 
 Real-time security for AI-generated code inside VS Code.
 
