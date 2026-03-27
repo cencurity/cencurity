@@ -32,7 +32,7 @@ It inspects generated code in real-time and blocks unsafe patterns before they r
 
 ## Quickstart
 
-1. Install the extension.
+1. Install the extension from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=cencurity-labs.cencurity).
 2. Open Command Palette `Ctrl+Shift+P` or `Command+Shift+P` (macOS) and run `Cencurity: Enable Protection`.
 3. Select your LLM provider.
 4. Open Command Palette again and run `Cencurity: Open Security Center`.
