@@ -6,3 +6,12 @@
 
 # OS/editor
 .DS_Store
+
+# Workspace/editor state
+.vscode/
+
+# Dependencies
+node_modules/
+
+# Packaged extension artifacts
+*.vsix

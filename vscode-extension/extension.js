@@ -247,7 +247,7 @@ async function ensureStorageDir(context) {
 
 async function findLocalWorkspaceCoreScript() {
   for (const workspaceRoot of getWorkspaceRoots()) {
-    const candidate = path.join(workspaceRoot, 'vscode-extension', 'core-server.js');
+    const candidate = path.join(workspaceRoot, 'legacy', 'vscode-core-runtime', 'core-server.js');
     if (await pathExists(candidate)) {
       return candidate;
     }
@@ -257,7 +257,7 @@ async function findLocalWorkspaceCoreScript() {
 
 async function findLocalWorkspaceClientBuild() {
   for (const workspaceRoot of getWorkspaceRoots()) {
-    const distRoot = path.join(workspaceRoot, 'd', 'dist');
+    const distRoot = path.join(workspaceRoot, 'legacy', 'd', 'dist');
     const indexPath = path.join(distRoot, 'index.client.html');
     if (await pathExists(indexPath)) {
       return { distRoot, indexPath };
@@ -269,7 +269,7 @@ async function findLocalWorkspaceClientBuild() {
 async function findLocalWorkspaceBinary(target) {
   const binaryName = target.startsWith('win32') ? 'cencurity-core.exe' : 'cencurity-core';
   for (const workspaceRoot of getWorkspaceRoots()) {
-    const candidate = path.join(workspaceRoot, 'vscode-extension', 'dist', 'releases', target, binaryName);
+    const candidate = path.join(workspaceRoot, 'legacy', 'vscode-core-runtime', 'dist', 'releases', target, binaryName);
     if (await pathExists(candidate)) {
       return candidate;
     }
@@ -387,7 +387,7 @@ async function ensureCoreBinary(context, forceDownload = false) {
     }
 
     const action = await vscode.window.showWarningMessage(
-      'Set cencurityConnector.manifestUrl or build a local core binary under vscode-extension/dist/releases before installing the Cencurity core binary.',
+      'Set cencurityConnector.manifestUrl or build a local core binary under legacy/vscode-core-runtime/dist/releases before installing the Cencurity core binary.',
       'Open Settings'
     );
     if (action === 'Open Settings') {

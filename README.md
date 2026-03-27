@@ -1,104 +1,63 @@
-﻿# Cencurity – Real-time security for AI-generated code
+﻿# Cencurity
 
-Stop insecure code from AI in real-time — before it runs.
+AI code security for VS Code. Inspect, redact, and block unsafe AI-generated code in real time before it reaches the developer.
 
-![Dashboard](./assets/screenshot-dashboard.jpg)
+![Cencurity dashboard](./assets/screenshot-dashboard.jpg)
+
+## VS Code Extension (Recommended)
+
+Cencurity is now primarily a VS Code extension product.
+
+- Main extension source: `./vscode-extension`
+- Primary experience: enable protection, select a provider, and monitor activity inside Security Center
+- Current focus: real-time protection for AI-generated code inside the IDE
 
 ## Quickstart
 
-1. Install the extension  
-2. Open Command Palette Ctrl+⇧Shift+P or ⌘Command+⇧Shift+P (macOS) `Cencurity Connector: Enable Protection`  
-3. Select your LLM provider  
-4. Open Command Palette Ctrl+⇧Shift+P or ⌘Command+⇧Shift+P (macOS) `Cencurity Connector: Open Security Center`  
+1. Open the VS Code extension project in `./vscode-extension`.
+2. Install the packaged VSIX from `./vscode-extension/cencurity.vsix`, or package a fresh one from that folder with `npm run package:vsix`.
+3. Open the Command Palette and run `Cencurity: Enable Protection`.
+4. Select your LLM provider.
+5. Run `Cencurity: Open Security Center`.
 
-That's it — protection is now active.
-
----
-
-## The problem
-
-AI coding tools generate code instantly.
-
-But security checks happen too late — during review or after execution.
-
-This creates a blind spot where insecure code can slip through unnoticed.
-
----
-
-## What Cencurity does
-
-Cencurity sits between your IDE and the model.
-
-It inspects generated code in real-time and blocks unsafe patterns before they reach your system.
-
----
+Protection is now active.
 
 ## Features
 
 ### Real-time Log Analysis
-![Log Analysis](./assets/screenshot-log-analysis.gif)
 
-- Inspect generated code as it flows through the system
-- See exactly what was detected and why
+![Real-time log analysis](./assets/screenshot-log-analysis.gif)
 
----
+- Inspect AI-generated code as it flows through the proxy
+- Review detections, policies, actions, and request history in one place
 
-### Dry Run Mode
-![Dry Run](./assets/screenshot-dry-run.gif)
+### Dry Run
 
-- Simulate execution without risk
-- Understand behavior before anything runs
+![Dry run](./assets/screenshot-dry-run.gif)
 
----
+- Simulate behavior without executing risky output
+- Understand what would be blocked before applying changes
 
 ### Zero-click Attack Detection
-![Zero Click](./assets/screenshot-zero-click.gif)
 
-- Detect dangerous patterns instantly
-- Block risky operations like `subprocess`, shell execution, etc.
+![Zero-click detection](./assets/screenshot-zero-click.gif)
 
----
+- Catch unsafe patterns while code is still being generated
+- Block dangerous output such as shell execution and sensitive operations
 
-## Command Palette
+## Commands
 
-Search for `cencurity` in the VS Code Command Palette to access the main actions:
-
-- `Cencurity Connector: Open Security Center` — open the Security Center dashboard inside VS Code
-- `Cencurity Connector: Enable Protection` — turn protection on and select your LLM provider
-- `Cencurity Connector: Disable Protection` — turn protection off and restore previous supported routing settings
-- `Cencurity Connector: Test Protection` — verify that requests are reaching the local proxy
-- `Cencurity Connector: Show Runtime Info` — inspect the local runtime and protection state
-- `Cencurity Connector: Install or Update Core` — install or refresh the local core runtime
-
----
-
-## How it works
-
-IDE → Cencurity Proxy → LLM Provider
-
-- Your API key stays in your IDE  
-- Requests are routed through a local proxy  
-- Code is analyzed in real-time before execution  
-
----
-
-## Supported providers
-
-- OpenAI  
-- Anthropic  
-- Gemini  
-- OpenRouter  
-
----
+- `Cencurity: Enable Protection` — turn on protection and configure the active provider
+- `Cencurity: Disable Protection` — turn off protection and restore supported routing settings
+- `Cencurity: Test Protection` — verify that traffic is reaching the local proxy
+- `Cencurity: Open Security Center` — open the dashboard inside VS Code
 
 ## Limitations
 
-Some extensions may bypass VS Code environment settings and not route through the proxy.
+- Routing applies to supported environment-based provider paths
+- Some extensions may bypass VS Code environment settings and not route through the proxy
+- The extension can use a local legacy runtime during development or a released core artifact in distribution builds
 
----
+## Legacy
 
-## Feedback
-
-Looking for feedback from developers using AI coding tools.
-
-If you have thoughts or run into issues, feel free to open an issue or reach out.
+The previous Docker/community-oriented layout and older runtime assets are preserved in `./legacy`.

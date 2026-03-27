@@ -4,3 +4,5 @@ node_modules/**
 *.vsix
 *.log
 manifest.sample.json
+assets/**
+!assets/24234234.png

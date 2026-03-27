@@ -1,0 +1,82 @@
+{
+  "name": "cencurity-vscode",
+  "displayName": "Cencurity",
+  "description": "Private core runtime for the Cencurity VS Code experience.",
+  "version": "0.0.1",
+  "publisher": "local",
+  "license": "SEE LICENSE IN ../LICENSE",
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "scripts": {
+    "serve:core": "node ./core-server.js serve --host 127.0.0.1 --port 38180",
+    "build:binary:win32-x64": "pkg ./core-server.js --targets node18-win-x64 --output ./dist/releases/win32-x64/cencurity-core.exe",
+    "build:binary:linux-x64": "pkg ./core-server.js --targets node18-linux-x64 --output ./dist/releases/linux-x64/cencurity-core",
+    "build:binary:darwin-x64": "pkg ./core-server.js --targets node18-macos-x64 --output ./dist/releases/darwin-x64/cencurity-core",
+    "generate:manifest": "node ./scripts/generate_manifest.js"
+  },
+  "bin": {
+    "cencurity-core": "./core-server.js"
+  },
+  "pkg": {
+    "scripts": [
+      "core-server.js"
+    ],
+    "assets": [
+      "standalone/index.html",
+      "standalone/styles.css",
+      "standalone/app.js"
+    ],
+    "targets": [
+      "node18-win-x64",
+      "node18-linux-x64",
+      "node18-macos-x64"
+    ]
+  },
+  "devDependencies": {
+    "pkg": "^5.8.1"
+  },
+  "main": "./main.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "cencurity.bootstrapSession",
+        "title": "Cencurity: Bootstrap Session"
+      },
+      {
+        "command": "cencurity.openSecurityCenter",
+        "title": "Cencurity: Open Security Center"
+      },
+      {
+        "command": "cencurity.startLocalStack",
+        "title": "Cencurity: Start Local Stack"
+      },
+      {
+        "command": "cencurity.openBrowserDashboard",
+        "title": "Cencurity: Open Browser Dashboard"
+      },
+      {
+        "command": "cencurity.copyProxyBaseUrl",
+        "title": "Cencurity: Copy Proxy Base URL"
+      }
+    ],
+    "configuration": {
+      "title": "Cencurity",
+      "properties": {
+        "cencurity.dashboardBaseUrl": {
+          "type": "string",
+          "default": "http://localhost:18080",
+          "description": "Base URL for the Cencurity dashboard and API."
+        },
+        "cencurity.proxyBaseUrl": {
+          "type": "string",
+          "default": "http://localhost:18082",
+          "description": "Base URL for the Cencurity proxy endpoint."
+        }
+      }
+    }
+  }
+}

@@ -1,10 +1,15 @@
 {
-  "name": "cencurity-connector",
-  "displayName": "Cencurity Connector",
-  "description": "Lightweight connector that downloads and launches the private Cencurity core binary.",
+  "name": "cencurity",
+  "displayName": "Cencurity",
+  "description": "CAST — real-time security that blocks unsafe AI-generated code while the model is still writing.",
   "version": "0.0.1",
-  "publisher": "local",
+  "publisher": "cencurity-labs",
+  "icon": "assets/24234234.png",
   "license": "SEE LICENSE IN LICENSE",
+  "homepage": "https://github.com/cencurity/cencurity/releases",
+  "bugs": {
+    "url": "https://github.com/cencurity/cencurity/issues"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/cencurity/cencurity.git"
@@ -16,10 +21,11 @@
     "onStartupFinished"
   ],
   "categories": [
-    "Other"
+    "Other",
+    "Visualization"
   ],
   "scripts": {
-    "package:vsix": "vsce package --out cencurity-connector.vsix"
+    "package:vsix": "vsce package --out cencurity.vsix"
   },
   "devDependencies": {
     "@vscode/vsce": "^3.6.2"
@@ -29,31 +35,31 @@
     "commands": [
       {
         "command": "cencurityConnector.enableProtection",
-        "title": "Cencurity Connector: Enable Protection"
+        "title": "Cencurity: Enable Protection"
       },
       {
         "command": "cencurityConnector.disableProtection",
-        "title": "Cencurity Connector: Disable Protection"
+        "title": "Cencurity: Disable Protection"
       },
       {
         "command": "cencurityConnector.testProtection",
-        "title": "Cencurity Connector: Test Protection"
+        "title": "Cencurity: Test Protection"
       },
       {
         "command": "cencurityConnector.openSecurityCenter",
-        "title": "Cencurity Connector: Open Security Center"
+        "title": "Cencurity: Open Security Center"
       },
       {
         "command": "cencurityConnector.installOrUpdateCore",
-        "title": "Cencurity Connector: Install or Update Core"
+        "title": "Cencurity: Install or Update Core"
       },
       {
         "command": "cencurityConnector.showRuntimeInfo",
-        "title": "Cencurity Connector: Show Runtime Info"
+        "title": "Cencurity: Show Runtime Info"
       }
     ],
     "configuration": {
-      "title": "Cencurity Connector",
+      "title": "Cencurity",
       "properties": {
         "cencurityConnector.manifestUrl": {
           "type": "string",

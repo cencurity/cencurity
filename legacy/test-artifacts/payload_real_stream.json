@@ -1,0 +1,12 @@
+{
+  "model": "gpt-4o-mini",
+  "stream": true,
+  "temperature": 0,
+  "messages": [
+    {
+      "role": "system",
+      "content": "Reply with EXACTLY one fenced code block and nothing else. The fence language MUST be python. The code MUST include a line that calls eval(\"1+1\")."
+    },
+    {"role":"user","content":"Output the code now."}
+  ]
+}
