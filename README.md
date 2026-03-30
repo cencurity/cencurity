@@ -27,29 +27,36 @@ It inspects generated code in real-time and blocks unsafe patterns before they r
 ## What it does
 
 - Opens the Cencurity Security Center inside VS Code.
-- Routes supported LLM traffic through a local protection proxy.
+- Routes supported LLM traffic through a local security gateway.
+- Inspects requests and responses against configurable security policies.
+- Blocks unsafe code patterns and masks sensitive data in real time.
+- Logs only policy violations, blocks, and masking events — normal traffic is never stored.
 - Keeps your existing provider API key where it already lives.
-- Verifies routing automatically when protection is enabled.
-- Shows live audit activity for real protected requests.
+- Automatically installs and configures Roo Code if it is not already present.
+- Applies local security scanning before LLM responses reach your editor.
 
 ## Quickstart
 
 1. Install the extension from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=cencurity-labs.cencurity-vscode).
 2. Open Command Palette `Ctrl+Shift+P` or `Command+Shift+P` (macOS) and run `Cencurity: Enable Protection`.
-3. Select your LLM provider.
-4. Open Command Palette again and run `Cencurity: Open Security Center`.
+3. If Roo Code is not installed, Cencurity will install it automatically and reload the window if needed.
+4. Select your LLM provider and enter your provider URL (for example `https://api.x.ai`).
+5. Open Command Palette again and run `Cencurity: Open Security Center`.
 
-That's it — protection is now active.
+That's it — protection is now active. Cencurity routes traffic through a local gateway and applies security scanning before responses reach Roo Code.
+
+> **Note:** Automatic proxy setup currently targets Roo Code. GitHub Copilot traffic is not supported.
 
 ---
 
 ## Features
 
-### Real-time Log Analysis
+### Security Event Dashboard
 ![Log Analysis](https://raw.githubusercontent.com/cencurity/cencurity/main/assets/screenshot-log-analysis.gif)
 
-- Inspect generated code as it flows through the system
-- See exactly what was detected and why
+- View policy violations, blocks, and masking events in real time
+- See exactly what was detected, which policy triggered, and what action was taken
+- Normal requests are not logged — only security-relevant events appear
 
 ---
 
@@ -88,11 +95,12 @@ Search for `cencurity` in the VS Code Command Palette to access the main actions
 
 ## How it works
 
-IDE → Cencurity Proxy → LLM Provider
+IDE → Cencurity Security Gateway → LLM Provider
 
 - Your API key stays in your IDE.
-- Requests are routed through a local proxy.
-- Code is analyzed in real-time before execution.
+- Requests are routed through a local security gateway on `127.0.0.1:38180`.
+- Responses are scanned locally against security policies before they reach your editor.
+- Only policy violations are recorded — normal traffic passes through without logging.
 
 ## What is CAST?
 
@@ -112,6 +120,7 @@ Cencurity is the first tool built on CAST.
 
 ## Notes
 
-- Routing applies to supported env-based routing paths.
-- Some extensions may bypass VS Code environment settings and not route through the proxy.
+- Automatic proxy setup currently targets **Roo Code**. If Roo Code is not installed, Cencurity will install it automatically and reload the window when needed.
+- Routing applies to supported env-based routing paths. Some extensions may bypass VS Code environment settings.
+- Only security events (policy violations, blocks, masking) are persisted. Normal request content is never stored.
 - Public source exposure is intentionally minimized; older private runtime and embedded UI trees are not included here.
