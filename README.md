@@ -133,7 +133,7 @@ Cencurity is the first tool built on CAST.
 
 ## Notes
 
-- Automatic proxy setup currently targets **Roo Code**. If Roo Code is not installed, Cencurity will install it automatically and reload the window when needed.
-- Routing applies to supported env-based routing paths. Some extensions may bypass VS Code environment settings.
+- Automatic proxy setup supports **Roo Code**, **Continue**, **Claude Code**, and **Gemini CLI**. If the selected agent is not installed, Cencurity will install it automatically and reload the window when needed.
+- Routing uses VS Code environment-based settings. Extensions or CLIs that bypass these settings require manual proxy configuration (point to `http://127.0.0.1:38180/v1`).
 - Only security events (policy violations, blocks, masking) are persisted. Normal request content is never stored.
-- Public source exposure is intentionally minimized; older private runtime and embedded UI trees are not included here.
+- This repository contains the public extension and dashboard. Internal runtime components are distributed separately.
