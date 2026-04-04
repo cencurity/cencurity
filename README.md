@@ -32,20 +32,22 @@ It inspects generated code in real-time and blocks unsafe patterns before they r
 - Blocks unsafe code patterns and masks sensitive data in real time.
 - Logs only policy violations, blocks, and masking events — normal traffic is never stored.
 - Keeps your existing provider API key where it already lives.
-- Automatically installs and configures Roo Code if it is not already present.
+- Supports multiple AI agents: **Roo Code**, **Continue**, and **Claude Code**.
+- Auto-installs and configures the selected agent if it is not already present.
 - Applies local security scanning before LLM responses reach your editor.
 
 ## Quickstart
 
 1. Install the extension from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=cencurity-labs.cencurity-vscode).
 2. Open Command Palette `Ctrl+Shift+P` or `Command+Shift+P` (macOS) and run `Cencurity: Enable Protection`.
-3. If Roo Code is not installed, Cencurity will install it automatically and reload the window if needed.
-4. Select your LLM provider and enter your provider URL (for example `https://api.x.ai`).
-5. Open Command Palette again and run `Cencurity: Open Security Center`.
+3. Select your LLM provider and enter your provider URL (for example `https://api.x.ai`).
+4. Select which agent to route through the proxy: **Roo Code**, **Continue**, or **Claude Code**.
+5. If the selected agent is not installed, Cencurity will install it automatically.
+6. Open Command Palette again and run `Cencurity: Open Security Center`.
 
-That's it — protection is now active. Cencurity routes traffic through a local gateway and applies security scanning before responses reach Roo Code.
+That's it — protection is now active. Cencurity routes traffic through a local gateway and applies security scanning before responses reach your selected agent.
 
-> **Note:** Automatic proxy setup currently targets Roo Code. GitHub Copilot traffic is not supported.
+> **Note:** Gemini CLI is also supported when using a Gemini provider. GitHub Copilot traffic is not supported.
 
 ---
 
@@ -84,6 +86,17 @@ Search for `cencurity` in the VS Code Command Palette to access the main actions
 - `Cencurity: Test Protection` — verify that requests are reaching the local proxy
 - `Cencurity: Show Runtime Info` — inspect the local runtime and protection state
 - `Cencurity: Install or Update Core` — install or refresh the local core runtime
+
+## Supported agents
+
+| Agent | Type | Auto-install | Provider compatibility |
+|-------|------|-------------|------------------------|
+| **Roo Code** | VS Code Agent | Yes | All providers |
+| **Continue** | VS Code Agent | Yes | All providers |
+| **Claude Code** | CLI | Yes | All providers |
+| **Gemini CLI** | CLI | Yes | Gemini provider only |
+
+> **Other agents & CLIs:** Any tool that supports a custom API base URL (e.g. `OPENAI_API_BASE`, `apiBase` config, etc.) can work with Cencurity. Point it to `http://127.0.0.1:38180/v1` and set your API key — the proxy handles the rest. The agents listed above are auto-configured; unlisted tools require manual setup.
 
 ## Supported providers
 
